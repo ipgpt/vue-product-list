@@ -23,8 +23,8 @@ export default {
     },
   },
   methods: {
-    handleBuy() {
-      this.$emit('handle-buy');
+    handleBuy(id) {
+      this.$emit('handle-buy', id);
     },
   },
 };

@@ -3,13 +3,24 @@
     <img class="card__image" :src="product.thumbnailUrl" alt="product" />
     <div class="card__body">
       <p class="card__text">{{product.title}}</p>
-      <button class="card__button" @click="$emit('handle-buy')">Купить</button>
+      <button
+      class="card__button"
+      @click="$emit('handle-buy', product.id)"
+      >
+        <Loader v-if="product.loading" />
+        {{ product.loading ? '' : product.isInBasket ? 'В корзине' : 'Купить'}}
+      </button>
     </div>
   </div>
 </template>
 
 <script>
+import Loader from './Loader.vue';
+
 export default {
+  components: {
+    Loader,
+  },
   props: {
     product: {
       type: Object,
@@ -26,6 +37,11 @@ export default {
   padding: 20px;
   box-sizing: border-box;
   border: 1px solid #ccc;
+
+  &__button {
+    height: 35px;
+    width: 100%;
+  }
 }
 
 @media screen and (max-width: 768px) {
