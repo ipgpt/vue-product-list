@@ -1,6 +1,11 @@
 <template>
   <div class="list">
-    <ProductCard v-for="product in products" :key="product.id" :product="product" />
+    <ProductCard
+      v-for="product in products"
+      :key="product.id"
+      :product="product"
+      @handle-buy="handleBuy"
+    />
   </div>
 </template>
 
@@ -15,6 +20,11 @@ export default {
     products: {
       type: Array,
       required: true,
+    },
+  },
+  methods: {
+    handleBuy() {
+      this.$emit('handle-buy');
     },
   },
 };

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <h1>Product page</h1>
-    <ProductList :products="products" />
+    <ProductList :products="products" @handle-buy="handleBuy" />
   </div>
 </template>
 
@@ -20,6 +20,14 @@ export default {
     return {
       products: [],
     };
+  },
+  methods: {
+    handleBuy() {
+      axios
+        .get('https://jsonplaceholder.typicode.com/posts/1')
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
+    },
   },
   mounted() {
     axios

@@ -3,7 +3,7 @@
     <img class="card__image" :src="product.thumbnailUrl" alt="product" />
     <div class="card__body">
       <p class="card__text">{{product.title}}</p>
-      <button class="card__button">Купить</button>
+      <button class="card__button" @click="$emit('handle-buy')">Купить</button>
     </div>
   </div>
 </template>
