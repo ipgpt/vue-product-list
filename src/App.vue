@@ -22,6 +22,10 @@ export default {
     };
   },
   methods: {
+    saveProducts() {
+      const parsedData = JSON.stringify(this.products);
+      localStorage.setItem('products', parsedData);
+    },
     handleBuy(id) {
       this.products = this.products.map((item) => {
         if (item.id === id) {
@@ -70,21 +74,30 @@ export default {
             }
             return item;
           });
+          this.saveProducts();
         })
         .catch((err) => console.log(err));
     },
   },
   mounted() {
-    axios
-      .get(`https://jsonplaceholder.typicode.com/photos${productsLimit}`)
-      .then((res) => {
-        this.products = res.data;
-        this.products = this.products.map((item) => Object.assign(item, {
-          loading: false,
-          isInBasket: false,
-        }));
-      })
-      .catch((err) => console.log(err));
+    if (localStorage.getItem('products')) {
+      try {
+        this.products = JSON.parse(localStorage.getItem('products'));
+      } catch (e) {
+        localStorage.removeItem('products');
+      }
+    } else {
+      axios
+        .get(`https://jsonplaceholder.typicode.com/photos${productsLimit}`)
+        .then((res) => {
+          this.products = res.data;
+          this.products = this.products.map((item) => Object.assign(item, {
+            loading: false,
+            isInBasket: false,
+          }));
+        })
+        .catch((err) => console.log(err));
+    }
   },
 };
 </script>

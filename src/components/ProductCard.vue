@@ -5,6 +5,7 @@
       <p class="card__text">{{product.title}}</p>
       <button
       class="card__button"
+      :class="{ 'card__button--in-busket': product.isInBasket }"
       @click="$emit('handle-buy', product.id)"
       >
         <Loader v-if="product.loading" />
@@ -41,6 +42,10 @@ export default {
   &__button {
     height: 35px;
     width: 100%;
+
+    &--in-busket {
+      background-color: #87cefa;
+    }
   }
 }
 
